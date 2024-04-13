@@ -53,6 +53,10 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
 	float MovementMultiplier = 50.0f;
 
+	// The more we zoom out the more the speed of camera movement
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
+	float MovementByZoomMultiplier = 0.001f;
+
 	// Smoothness of the Movement
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
 	float MovementSmoothness = 4.0f;

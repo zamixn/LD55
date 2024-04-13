@@ -119,9 +119,10 @@ void ARTSPawn::SpawnRat()
 
 void ARTSPawn::XMovement(const FInputActionValue &Value)
 {
-	float AxisValue = Value.GetMagnitude();
+	const float AxisValue = Value.GetMagnitude();
+	const float MovMultiplier = MovementByZoomMultiplier * TargetZoom + MovementMultiplier;
 	FVector Movement;
-	Movement.X = AxisValue * MovementMultiplier * GetAdjustedDeltaTime();
+	Movement.X = AxisValue * MovMultiplier * GetAdjustedDeltaTime();
 	Movement.Y = 0;
 	Movement.Z = 0;
 	Movement = UKismetMathLibrary::TransformDirection(GetActorTransform(), Movement);
@@ -131,10 +132,11 @@ void ARTSPawn::XMovement(const FInputActionValue &Value)
 
 void ARTSPawn::YMovement(const FInputActionValue &Value)
 {
-	float AxisValue = Value.GetMagnitude();
+	const float AxisValue = Value.GetMagnitude();
+	const float MovMultiplier = MovementByZoomMultiplier * TargetZoom + MovementMultiplier;
 	FVector Movement;
 	Movement.X = 0;
-	Movement.Y = AxisValue * MovementMultiplier * GetAdjustedDeltaTime();
+	Movement.Y = AxisValue * MovMultiplier * GetAdjustedDeltaTime();
 	Movement.Z = 0;
 	Movement = UKismetMathLibrary::TransformDirection(GetActorTransform(), Movement);
 	TargetVector.X = TargetVector.X + Movement.X;
@@ -145,6 +147,7 @@ void ARTSPawn::MouseMovement(const float DeltaTime)
 {
 	const float XValue = XBinding->GetValue().Get<float>();
 	const float YValue = YBinding->GetValue().Get<float>();
+	const float MovMultiplier = MovementByZoomMultiplier * TargetZoom + MovementMultiplier;
 
 	if (XValue != 0 || YValue != 0)
 	{
@@ -175,8 +178,8 @@ void ARTSPawn::MouseMovement(const float DeltaTime)
 	}
 
 	FVector Movement;
-	Movement.X = DirectionX * MovementMultiplier * GetAdjustedDeltaTime();
-	Movement.Y = DirectionY * MovementMultiplier * GetAdjustedDeltaTime();
+	Movement.X = DirectionX * MovMultiplier * GetAdjustedDeltaTime();
+	Movement.Y = DirectionY * MovMultiplier * GetAdjustedDeltaTime();
 	Movement.Z = 0;
 	Movement = UKismetMathLibrary::TransformDirection(GetActorTransform(), Movement);
 	TargetVector.X = TargetVector.X + Movement.X;
