@@ -38,6 +38,9 @@ public:
 	UPROPERTY(EditDefaultsOnly, Category = "Movement")
     UInputAction* ResetCameraAction;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Spawning")
+	UInputAction* SpawnRatAction = nullptr;
+
 	// Defines the Area in % of the viewport in which the Movement is activated
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
 	int MovementZoneInPercent = 25;
@@ -130,6 +133,12 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "RTS Camera")
 	void ResetCamera();
+
+	UFUNCTION(BlueprintCallable, Category = "RTS Camera")
+	void SpawnRat();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void BP_SpawnRat();
 
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

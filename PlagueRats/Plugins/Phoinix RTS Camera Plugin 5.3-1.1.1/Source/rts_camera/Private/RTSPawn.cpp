@@ -102,6 +102,7 @@ void ARTSPawn::SetupPlayerInputComponent(UInputComponent *PlayerInputComponent)
 	PEI->BindAction(RotationAxisAction, ETriggerEvent::Triggered, this, &ARTSPawn::RotateCamera);
 	PEI->BindAction(ZoomAxisAction, ETriggerEvent::Triggered, this, &ARTSPawn::Zoom);
 	PEI->BindAction(ResetCameraAction, ETriggerEvent::Triggered, this, &ARTSPawn::ResetCamera);
+	PEI->BindAction(SpawnRatAction, ETriggerEvent::Started, this, &ARTSPawn::SpawnRat);
 }
 
 // Called when the game starts or when spawned
@@ -109,6 +110,11 @@ void ARTSPawn::ResetCamera()
 {
 	TargetRotation = DefaultRotation;
 	TargetZoom=DefaultArmLength;
+}
+
+void ARTSPawn::SpawnRat()
+{
+	BP_SpawnRat();
 }
 
 void ARTSPawn::XMovement(const FInputActionValue &Value)
