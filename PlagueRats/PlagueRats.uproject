@@ -17,6 +17,10 @@
 			"TargetAllowList": [
 				"Editor"
 			]
+		},
+		{
+			"Name": "rts_camera",
+			"Enabled": true
 		}
 	]
 }
