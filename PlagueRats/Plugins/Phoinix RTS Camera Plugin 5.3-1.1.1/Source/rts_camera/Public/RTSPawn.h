@@ -61,6 +61,10 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
 	float MovementSmoothness = 4.0f;
 
+	// Movement blocking trace channel
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
+	TEnumAsByte<ECollisionChannel> MovementBlockingTraceChannel = ECollisionChannel::ECC_WorldStatic;
+
 	// Whether the RTS Camera should always have the same height or adjust to the world
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Height Adjustment")
 	bool HeightAdjustment = true;
@@ -206,4 +210,6 @@ private:
 	void MoveTo(const float DeltaTime);
 
 	float GetAdjustedDeltaTime() const;
+
+	bool CanMoveInDirection(const FVector Direction) const;
 };

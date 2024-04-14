@@ -117,6 +117,39 @@ void ARTSPawn::SpawnRat()
 	BP_SpawnRat();
 }
 
+bool ARTSPawn::CanMoveInDirection(const FVector Direction) const
+{
+	// FHitResult will hold all data returned by our line collision query
+	FHitResult Hit;
+
+	FVector TraceStart = TargetVector;
+	FVector TraceEnd = TraceStart + Direction;
+
+	// You can use FCollisionQueryParams to further configure the query
+	// Here we add ourselves to the ignored list so we won't block the trace
+	FCollisionQueryParams QueryParams;
+	QueryParams.AddIgnoredActor(this);
+
+	// To run the query, you need a pointer to the current level, which you can get from an Actor with GetWorld()
+	// UWorld()->LineTraceSingleByChannel runs a line trace and returns the first actor hit over the provided collision channel.
+	GetWorld()->LineTraceSingleByChannel(Hit, TraceStart, TraceEnd, MovementBlockingTraceChannel, QueryParams);
+
+	// You can use DrawDebug helpers and the log to help visualize and debug your trace queries.
+	DrawDebugLine(GetWorld(), TraceStart, TraceEnd, Hit.bBlockingHit ? FColor::Blue : FColor::Red, false, 5.0f, 0, 10.0f);
+	UE_LOG(LogTemp, Log, TEXT("Tracing line: %s to %s"), *TraceStart.ToCompactString(), *TraceEnd.ToCompactString());
+
+	// If the trace hit something, bBlockingHit will be true,
+	// and its fields will be filled with detailed info about what was hit
+	if (Hit.bBlockingHit && IsValid(Hit.GetActor()))
+	{
+		UE_LOG(LogTemp, Log, TEXT("Trace hit actor"));
+		return false;
+	}
+	else {
+		return true;
+	}
+}
+
 void ARTSPawn::XMovement(const FInputActionValue &Value)
 {
 	const float AxisValue = Value.GetMagnitude();
@@ -126,8 +159,12 @@ void ARTSPawn::XMovement(const FInputActionValue &Value)
 	Movement.Y = 0;
 	Movement.Z = 0;
 	Movement = UKismetMathLibrary::TransformDirection(GetActorTransform(), Movement);
-	TargetVector.X = TargetVector.X + Movement.X;
-	TargetVector.Y = TargetVector.Y + Movement.Y;
+
+	if (CanMoveInDirection(Movement))
+	{
+		TargetVector.X = TargetVector.X + Movement.X;
+		TargetVector.Y = TargetVector.Y + Movement.Y;
+	}
 }
 
 void ARTSPawn::YMovement(const FInputActionValue &Value)
@@ -139,8 +176,13 @@ void ARTSPawn::YMovement(const FInputActionValue &Value)
 	Movement.Y = AxisValue * MovMultiplier * GetAdjustedDeltaTime();
 	Movement.Z = 0;
 	Movement = UKismetMathLibrary::TransformDirection(GetActorTransform(), Movement);
-	TargetVector.X = TargetVector.X + Movement.X;
-	TargetVector.Y = TargetVector.Y + Movement.Y;
+
+
+	if (CanMoveInDirection(Movement))
+	{
+		TargetVector.X = TargetVector.X + Movement.X;
+		TargetVector.Y = TargetVector.Y + Movement.Y;
+	}
 }
 
 void ARTSPawn::MouseMovement(const float DeltaTime)
