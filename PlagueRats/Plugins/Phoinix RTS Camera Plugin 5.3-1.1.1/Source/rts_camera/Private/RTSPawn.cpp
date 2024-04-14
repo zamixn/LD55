@@ -135,14 +135,14 @@ bool ARTSPawn::CanMoveInDirection(const FVector Direction) const
 	GetWorld()->LineTraceSingleByChannel(Hit, TraceStart, TraceEnd, MovementBlockingTraceChannel, QueryParams);
 
 	// You can use DrawDebug helpers and the log to help visualize and debug your trace queries.
-	DrawDebugLine(GetWorld(), TraceStart, TraceEnd, Hit.bBlockingHit ? FColor::Blue : FColor::Red, false, 5.0f, 0, 10.0f);
-	UE_LOG(LogTemp, Log, TEXT("Tracing line: %s to %s"), *TraceStart.ToCompactString(), *TraceEnd.ToCompactString());
+	//DrawDebugLine(GetWorld(), TraceStart, TraceEnd, Hit.bBlockingHit ? FColor::Blue : FColor::Red, false, 5.0f, 0, 10.0f);
+	//UE_LOG(LogTemp, Log, TEXT("Tracing line: %s to %s"), *TraceStart.ToCompactString(), *TraceEnd.ToCompactString());
 
 	// If the trace hit something, bBlockingHit will be true,
 	// and its fields will be filled with detailed info about what was hit
 	if (Hit.bBlockingHit && IsValid(Hit.GetActor()))
 	{
-		UE_LOG(LogTemp, Log, TEXT("Trace hit actor"));
+		//UE_LOG(LogTemp, Log, TEXT("Trace hit actor"));
 		return false;
 	}
 	else {
