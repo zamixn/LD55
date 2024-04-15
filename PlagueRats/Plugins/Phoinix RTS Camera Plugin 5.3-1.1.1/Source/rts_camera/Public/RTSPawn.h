@@ -53,6 +53,10 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
 	float MovementMultiplier = 50.0f;
 
+	// Can you move with mouse
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
+	bool bAllowMouseMovement = true;
+
 	// The more we zoom out the more the speed of camera movement
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
 	float MovementByZoomMultiplier = 0.001f;
