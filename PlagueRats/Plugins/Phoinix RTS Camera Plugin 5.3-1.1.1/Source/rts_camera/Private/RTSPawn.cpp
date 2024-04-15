@@ -187,6 +187,11 @@ void ARTSPawn::YMovement(const FInputActionValue &Value)
 
 void ARTSPawn::MouseMovement(const float DeltaTime)
 {
+	if(!bAllowMouseMovement)
+	{
+		return;
+	}
+	
 	const float XValue = XBinding->GetValue().Get<float>();
 	const float YValue = YBinding->GetValue().Get<float>();
 	const float MovMultiplier = MovementByZoomMultiplier * TargetZoom + MovementMultiplier;
