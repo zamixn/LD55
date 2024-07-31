@@ -23,25 +23,19 @@ void ABaseRat::BeginPlay()
 	AttackVillager();
 }
 
-// Called every frame
-void ABaseRat::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
-}
-
-// Called to bind functionality to input
-void ABaseRat::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
-{
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
-}
-
-void ABaseRat::SetRatScale()
+void ABaseRat::SetRatBigScale() const
 {
 	if(USkeletalMeshComponent* MeshComponent = GetMesh())
 	{
-		MeshComponent->SetWorldScale3D(ScaleToSet);
+		MeshComponent->SetWorldScale3D(BigScaleToSet);
+	}
+}
+
+void ABaseRat::SetRatSmallScale() const
+{
+	if(USkeletalMeshComponent* MeshComponent = GetMesh())
+	{
+		MeshComponent->SetWorldScale3D(SmallScaleToSet);
 	}
 }
 
@@ -49,7 +43,20 @@ void ABaseRat::OnMoveComplete(FAIRequestID RequestID, EPathFollowingResult::Type
 {
 	if(Result == EPathFollowingResult::Success)
 	{
-		
+		if(!bIsDead)
+		{
+			SetRatSmallScale();
+			if(USkeletalMeshComponent* MeshComponent = GetMesh())
+			{
+				MeshComponent->PlayAnimation(nullptr, true);
+				if(CurrentTarget)
+				{
+					AttackedVillagers.Add(CurrentTarget);
+					CurrentTarget->IncreasePlagueCounter();
+					
+				}
+			}
+		}
 	}
 	else
 	{
@@ -68,13 +75,10 @@ void ABaseRat::AttackVillager()
 			AiController->MoveToActor(CurrentTarget, 5.f, false);
 			if(USkeletalMeshComponent* MeshComponent = GetMesh())
 			{
-				if(MeshAnimation)
-				{
-					MeshComponent->PlayAnimation(MeshAnimation, true);
-				}
+				MeshComponent->PlayAnimation(MeshAnimation, true);
 			}
 
-			GetWorldTimerManager().SetTimerForNextTick(this, &ABaseRat::SetRatScale);
+			GetWorldTimerManager().SetTimerForNextTick(this, &ABaseRat::SetRatBigScale);
 		}
 	}
 	else

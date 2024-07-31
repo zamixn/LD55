@@ -26,25 +26,23 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	void SetRatScale();
+	void SetRatBigScale() const;
+	void SetRatSmallScale() const;
 
 	UPROPERTY(EditAnywhere)
-	FVector ScaleToSet = FVector::ZeroVector;
+	FVector BigScaleToSet = FVector::ZeroVector;
+
+	UPROPERTY(EditAnywhere)
+	FVector SmallScaleToSet = FVector::ZeroVector;
 	
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<UAnimationAsset> MeshAnimation = nullptr;
 	
 	TObjectPtr<ABaseVillager> CurrentTarget = nullptr;
 
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
 private:
 	void AttackVillager();
 	ABaseVillager* GetClosestVillager() const;
 	TSet<ABaseVillager*> AttackedVillagers;
+	bool bIsDead = false;
 };

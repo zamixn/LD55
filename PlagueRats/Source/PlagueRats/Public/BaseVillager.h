@@ -6,6 +6,8 @@
 #include "GameFramework/Character.h"
 #include "BaseVillager.generated.h"
 
+class UWidgetComponent;
+
 UCLASS()
 class PLAGUERATS_API ABaseVillager : public ACharacter
 {
@@ -19,15 +21,17 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UWidgetComponent> SpeechBubble = nullptr;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UWidgetComponent> PlagueCounter = nullptr;
+
 public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
 	FORCEINLINE bool IsDead() const { return bIsDead; }
+	void IncreasePlagueCounter();
 
 private:
 	bool bIsDead = false;
+	int32 LevelOfInfection = 0;
 };
