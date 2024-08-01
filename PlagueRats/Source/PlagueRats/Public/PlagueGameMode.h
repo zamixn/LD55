@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/GameMode.h"
 #include "UnlockDataAsset.h"
+#include "RatDataAsset.h"
 #include "PlagueGameMode.generated.h"
 
 /**
@@ -19,4 +20,7 @@ public:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	UUnlockDataAsset* UnlockDataAsset;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	URatDataAsset* RatDataAsset;	
 };
