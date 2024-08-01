@@ -29,12 +29,17 @@ void UProficiancyScreen::RollRandomProficiancies(const int32 NumOfProficiancies,
 		validTypes.Add(t);
 	}
 
-	for (size_t i = 0; i < NumOfProficiancies; ++i)
+	if (validTypes.Num() < NumOfProficiancies)
 	{
-		int32 rand = FMath::RandRange(0, (uint8)EProficiancyType::Max);
+		UE_LOG(LogTemp, Warning, TEXT("Tried rolling more proficiancies than available"));
+	}
 
-		EProficiancyType t = (EProficiancyType)rand;
-		validTypes.Remove(t);
+	for (size_t i = 0; i < NumOfProficiancies && validTypes.Num() > 0; ++i)
+	{
+		int32 rand = FMath::RandRange(0, validTypes.Num() - 1);
+
+		EProficiancyType t = validTypes[rand];
+		validTypes.RemoveAt(rand);
 		OutTypes.Add(t);
 	}
 }
