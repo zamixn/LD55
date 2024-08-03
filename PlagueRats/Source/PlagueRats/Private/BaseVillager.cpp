@@ -64,11 +64,11 @@ void ABaseVillager::Die()
 
 	CleanupAfterDeath();
 
-	if(USkeletalMeshComponent* Mesh = GetMesh())
+	if(USkeletalMeshComponent* CharMesh = GetMesh())
 	{
-		Mesh->SetAllBodiesSimulatePhysics(true);
-		Mesh->SetSimulatePhysics(true);
-		Mesh->WakeAllRigidBodies();
+		CharMesh->SetAllBodiesSimulatePhysics(true);
+		CharMesh->SetSimulatePhysics(true);
+		CharMesh->WakeAllRigidBodies();
 	}
 
 	if(UCapsuleComponent* Capsule = GetCapsuleComponent())
