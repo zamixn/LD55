@@ -3,3 +3,8 @@
 
 #include "ProficiencyScreen.h"
 
+void UProficiencyScreen::Show(const int32 CurrentLvl)
+{
+	AddToViewport();
+	
+}

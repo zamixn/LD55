@@ -3,6 +3,10 @@
 
 #include "RatPlayerController.h"
 
+#include "BaseHUD.h"
+#include "InfectedCounter.h"
+#include "ManaBar.h"
+
 void ARatPlayerController::OnRatAttackedVillager(const bool bHasKilled)
 {
 	CurrentMana = FMath::Clamp(CurrentMana + ManaGainedPerRatAttack * ManaRecovery, 0.f, MaxMana);
@@ -10,6 +14,14 @@ void ARatPlayerController::OnRatAttackedVillager(const bool bHasKilled)
 	if(bHasKilled)
 	{
 		OnRatKilledVillager();
+	}
+
+	if(const ABaseHUD* PlayerHUD = GetHUD<ABaseHUD>())
+	{
+		if(PlayerHUD->ManaBar)
+		{
+			PlayerHUD->ManaBar->UpdateMana(CurrentMana, MaxMana);
+		}
 	}
 }
 
@@ -21,6 +33,14 @@ void ARatPlayerController::OnRatKilledVillager()
 	if(--InfectedNeededForLvl <= 0)
 	{
 		LevelUp();
+	}
+
+	if(const ABaseHUD* PlayerHUD = GetHUD<ABaseHUD>())
+	{
+		if(PlayerHUD->InfectedCounter)
+		{
+			PlayerHUD->InfectedCounter->UpdateInfected(TotalInfected, InfectedNeededForLvl, CurrentLvl);
+		}
 	}
 }
 

@@ -20,6 +20,16 @@ class PLAGUERATS_API ABaseHUD : public AHUD
 {
 	GENERATED_BODY()
 
+public:
+	UPROPERTY()
+	TObjectPtr<UManaBar> ManaBar = nullptr;
+
+	UPROPERTY()
+	TObjectPtr<UInfectedCounter> InfectedCounter = nullptr;
+
+	UPROPERTY()
+	TObjectPtr<UProficiencyScreen> ProficiencyScreen = nullptr;
+
 protected:
 	virtual void BeginPlay() override;
 
@@ -29,9 +39,6 @@ protected:
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UUserWidget> HudToCreate = nullptr;
 
-	UPROPERTY()
-	TObjectPtr<UProficiencyScreen> ProficiencyScreen = nullptr;
-
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UUserWidget> ProficiencyScreenToCreate = nullptr;
 
@@ -40,10 +47,4 @@ protected:
 
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UUserWidget> PauseMenuToCreate = nullptr;
-
-	UPROPERTY()
-	TObjectPtr<UManaBar> ManaBar = nullptr;
-
-	UPROPERTY()
-	TObjectPtr<UInfectedCounter> InfectedCounter = nullptr;
 };

@@ -13,5 +13,7 @@ UCLASS()
 class PLAGUERATS_API UProficiencyScreen : public UUserWidget
 {
 	GENERATED_BODY()
-	
+
+public:
+	void Show(const int32 CurrentLvl);
 };
