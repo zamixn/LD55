@@ -6,6 +6,12 @@
 #include "GameFramework/HUD.h"
 #include "BaseHUD.generated.h"
 
+class UPauseMenu;
+class UProficiencyScreen;
+class UInfectedCounter;
+class UManaBar;
+class UWidgetHUD;
+
 /**
  * 
  */
@@ -13,5 +19,31 @@ UCLASS()
 class PLAGUERATS_API ABaseHUD : public AHUD
 {
 	GENERATED_BODY()
-	
+
+protected:
+	virtual void BeginPlay() override;
+
+	UPROPERTY()
+	TObjectPtr<UWidgetHUD> GameHud = nullptr;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UUserWidget> HudToCreate = nullptr;
+
+	UPROPERTY()
+	TObjectPtr<UProficiencyScreen> ProficiencyScreen = nullptr;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UUserWidget> ProficiencyScreenToCreate = nullptr;
+
+	UPROPERTY()
+	TObjectPtr<UPauseMenu> PauseMenu = nullptr;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UUserWidget> PauseMenuToCreate = nullptr;
+
+	UPROPERTY()
+	TObjectPtr<UManaBar> ManaBar = nullptr;
+
+	UPROPERTY()
+	TObjectPtr<UInfectedCounter> InfectedCounter = nullptr;
 };
