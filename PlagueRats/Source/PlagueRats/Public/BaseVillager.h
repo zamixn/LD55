@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "BaseVillager.generated.h"
 
+class ABaseVillagerSpawner;
 class UWidgetComponent;
 
 UCLASS()
@@ -17,6 +18,9 @@ public:
 	// Sets default values for this character's properties
 	ABaseVillager();
 
+	UPROPERTY()
+	TObjectPtr<ABaseVillagerSpawner> Spawner = nullptr;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -27,11 +31,27 @@ protected:
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<UWidgetComponent> PlagueCounter = nullptr;
 
+	UPROPERTY(EditAnywhere)
+	TArray<USoundCue*> DeathNoises;
+
+	UPROPERTY(EditAnywhere)
+	float TimeUntilHide = 3.f;
+
+	UPROPERTY(EditAnywhere)
+	float TimeUntilDestroy = 10.f;
+
 public:	
 	FORCEINLINE bool IsDead() const { return bIsDead; }
 	void IncreasePlagueCounter();
 
 private:
+	void Die();
+	void DestroyVillager();
+	void HideVillager();
+	void CleanupAfterDeath();
+	
 	bool bIsDead = false;
 	int32 LevelOfInfection = 0;
+	FTimerHandle HideVillagerHandle;
+	FTimerHandle DestroyVillagerHandle;
 };
