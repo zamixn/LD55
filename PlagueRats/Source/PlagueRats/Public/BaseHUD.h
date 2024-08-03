@@ -30,11 +30,11 @@ public:
 	UPROPERTY()
 	TObjectPtr<UProficiencyScreen> ProficiencyScreen = nullptr;
 
-protected:
-	virtual void BeginPlay() override;
-
 	UPROPERTY()
 	TObjectPtr<UWidgetHUD> GameHud = nullptr;
+
+protected:
+	virtual void BeginPlay() override;
 
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UUserWidget> HudToCreate = nullptr;

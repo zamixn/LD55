@@ -6,6 +6,7 @@
 #include "BaseHUD.h"
 #include "InfectedCounter.h"
 #include "ManaBar.h"
+#include "ProficiencyScreen.h"
 
 void ARatPlayerController::OnRatAttackedVillager(const bool bHasKilled)
 {
@@ -48,5 +49,17 @@ void ARatPlayerController::LevelUp()
 {
 	InfectedNeededForLvl = 2 * CurrentLvl + BaseInfectedNeededForLvl;
 	++CurrentLvl;
-	
+
+	if(const ABaseHUD* PlayerHUD = GetHUD<ABaseHUD>())
+	{
+		if(PlayerHUD->ProficiencyScreen)
+		{
+			PlayerHUD->ProficiencyScreen->Show(CurrentLvl);
+		}
+
+		if(CurrentLvl == 5 && PlayerHUD->GameHud)
+		{
+			
+		}
+	}
 }
