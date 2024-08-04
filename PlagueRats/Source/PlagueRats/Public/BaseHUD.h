@@ -32,6 +32,9 @@ public:
 
 	UPROPERTY()
 	TObjectPtr<UWidgetHUD> GameHud = nullptr;
+	
+	UPROPERTY()
+	TObjectPtr<UPauseMenu> PauseMenu = nullptr;
 
 protected:
 	virtual void BeginPlay() override;
@@ -41,9 +44,6 @@ protected:
 
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UUserWidget> ProficiencyScreenToCreate = nullptr;
-
-	UPROPERTY()
-	TObjectPtr<UPauseMenu> PauseMenu = nullptr;
 
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UUserWidget> PauseMenuToCreate = nullptr;

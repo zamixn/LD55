@@ -14,6 +14,20 @@ class PLAGUERATS_API ARatPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 
+public:
+	void OnRatAttackedVillager(const bool bHasKilled);
+	void OnRatDeath() const;
+	FORCEINLINE int32 GetTotalInfected() const { return TotalInfected; }
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float RatSpeed = 0.f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float RatLifetime = 0.f;
+
+	UPROPERTY(BlueprintReadWrite)
+	int32 DaysSurvived = 0;
+	
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float CurrentMana = 0.f;
@@ -28,23 +42,21 @@ protected:
 	float ManaRecovery = 1.f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float RatSpawnCost = 15.f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 InfectedNeededForLvl = 3;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 BaseInfectedNeededForLvl = 3;
-	
-public:
-	void OnRatAttackedVillager(const bool bHasKilled);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float RatSpeed = 0.f;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float RatLifetime = 0.f;
+	int32 BigRatUnlockLevel = 5;
 
 private:
 	void OnRatKilledVillager();
 	void LevelUp();
+	bool CheckIfThereAreAliveRats() const;
 
 	int32 TotalInfected = 0.f;
 	int32 CurrentLvl = 0;

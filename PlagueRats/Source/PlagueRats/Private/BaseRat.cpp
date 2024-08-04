@@ -177,6 +177,11 @@ float ABaseRat::GetAdditionalLifetime() const
 	return 0.f;
 }
 
+void ABaseRat::DestroyRat()
+{
+	Destroy();
+}
+
 void ABaseRat::Die()
 {
 	if(!bIsDead)
@@ -196,7 +201,8 @@ void ABaseRat::Die()
 
 		if(const ARatPlayerController* PlayerController = Cast<ARatPlayerController>(UGameplayStatics::GetPlayerController(this, 0)))
 		{
-			
+			PlayerController->OnRatDeath();
+			GetWorldTimerManager().SetTimer(DestructionHandle, this, &ABaseRat::DestroyRat, TimeUntilDestruction);
 		}
 	}
 }

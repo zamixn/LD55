@@ -23,6 +23,8 @@ public:
 	UFUNCTION()
 	void OnMoveComplete(FAIRequestID RequestID, EPathFollowingResult::Type Result);
 
+	FORCEINLINE bool IsDead() const { return bIsDead; }
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -63,7 +65,11 @@ protected:
 	
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<UAnimationAsset> MeshAnimation = nullptr;
-	
+
+	UPROPERTY(EditAnywhere)
+	float TimeUntilDestruction = 5.f;
+
+	UPROPERTY()
 	TObjectPtr<ABaseVillager> CurrentTarget = nullptr;
 
 private:
@@ -72,11 +78,14 @@ private:
 	void ApplyStats() const;
 	float GetAdditionalMoveSpeed() const;
 	float GetAdditionalLifetime() const;
+	void DestroyRat();
 	void Die();
 	
 	TSet<ABaseVillager*> AttackedVillagers;
 	bool bIsDead = false;
+	
 	FTimerHandle AttackHandle;
 	FTimerHandle TryAttackingVillagerHandle;
 	FTimerHandle DeathHandle;
+	FTimerHandle DestructionHandle;
 };
