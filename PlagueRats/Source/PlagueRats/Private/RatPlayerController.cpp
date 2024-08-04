@@ -44,6 +44,14 @@ void ARatPlayerController::OnRatDeath() const
 	}
 }
 
+void ARatPlayerController::BeginPlay()
+{
+	Super::BeginPlay();
+
+	CurrentMana = MaxMana;
+	GetWorldTimerManager().SetTimerForNextTick(this, &ARatPlayerController::SetupStats);
+}
+
 void ARatPlayerController::OnRatKilledVillager()
 {
 	CurrentMana = FMath::Clamp(CurrentMana + ManaGainedPerRatAttack * ManaRecovery, 0.f, MaxMana);
@@ -99,4 +107,20 @@ bool ARatPlayerController::CheckIfThereAreAliveRats() const
 	}
 
 	return false;
+}
+
+void ARatPlayerController::SetupStats() const
+{
+	if(const ABaseHUD* PlayerHUD = GetHUD<ABaseHUD>())
+	{
+		if(PlayerHUD->ManaBar)
+		{
+			PlayerHUD->ManaBar->UpdateMana(CurrentMana, MaxMana);
+		}
+
+		if(PlayerHUD->InfectedCounter)
+		{
+			PlayerHUD->InfectedCounter->UpdateInfected(TotalInfected, InfectedNeededForLvl, CurrentLvl);
+		}
+	}
 }

@@ -29,6 +29,8 @@ public:
 	int32 DaysSurvived = 0;
 	
 protected:
+	virtual void BeginPlay() override;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float CurrentMana = 0.f;
 
@@ -57,6 +59,7 @@ private:
 	void OnRatKilledVillager();
 	void LevelUp();
 	bool CheckIfThereAreAliveRats() const;
+	void SetupStats() const;
 
 	int32 TotalInfected = 0.f;
 	int32 CurrentLvl = 0;
