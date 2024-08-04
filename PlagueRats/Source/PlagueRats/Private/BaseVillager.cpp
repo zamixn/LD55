@@ -3,13 +3,19 @@
 
 #include "BaseVillager.h"
 
+#include "AIController.h"
 #include "BaseVillagerSpawner.h"
+#include "IdleOriginPoint.h"
+#include "NavigationSystem.h"
 #include "PlagueBar.h"
 #include "Components/CapsuleComponent.h"
+#include "Components/SphereComponent.h"
 #include "Components/WidgetComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Sound/SoundCue.h"
+
+DEFINE_LOG_CATEGORY(LogVillager);
 
 // Sets default values
 ABaseVillager::ABaseVillager()
@@ -25,7 +31,28 @@ ABaseVillager::ABaseVillager()
 void ABaseVillager::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	SetRandomSkin();
+
+	TArray<AActor*> OutActors;
+	UGameplayStatics::GetAllActorsOfClass(this, AIdleOriginPoint::StaticClass(), OutActors);
+	if(!OutActors.IsEmpty())
+	{
+		const int32 RandomIndex = FMath::RandRange(0, OutActors.Num() - 1);
+		if(const AIdleOriginPoint* IdleOriginPoint = Cast<AIdleOriginPoint>(OutActors[RandomIndex]))
+		{
+			if(IdleOriginPoint->Sphere)
+			{
+				RoamOriginPoint = IdleOriginPoint->GetActorLocation();
+				RoamRadius = IdleOriginPoint->Sphere->GetUnscaledSphereRadius();
+				Roam();
+			}
+		}
+	}
+	else
+	{
+		UE_LOG(LogVillager, Warning, TEXT("### No origin point set for AI to target"));
+	}
 }
 
 void ABaseVillager::IncreasePlagueCounter()
@@ -40,6 +67,17 @@ void ABaseVillager::IncreasePlagueCounter()
 	{
 		Die();
 	}
+}
+
+void ABaseVillager::OnMoveComplete(FAIRequestID RequestID, EPathFollowingResult::Type Result)
+{
+	if(USkeletalMeshComponent* VillagerMesh = GetMesh())
+	{
+		VillagerMesh->PlayAnimation(IdleAnimation, true);
+	}
+
+	const float IdleTime = FMath::RandRange(MinWaitTime, MaxWaitTime);
+	GetWorldTimerManager().SetTimer(IdleHandle, this, &ABaseVillager::Roam, IdleTime);
 }
 
 void ABaseVillager::Die()
@@ -97,5 +135,41 @@ void ABaseVillager::CleanupAfterDeath()
 	}
 
 	GetWorldTimerManager().SetTimer(HideVillagerHandle, this, &ABaseVillager::HideVillager, TimeUntilHide);
+}
+
+void ABaseVillager::SetRandomSkin()
+{
+	if(!Skins.IsEmpty())
+	{
+		if(USkeletalMeshComponent* VillagerMesh = GetMesh())
+		{
+			const int32 RandomIndex = FMath::RandRange(0, Skins.Num() - 1);
+			VillagerMesh->SetMaterial(0, Skins[RandomIndex]);
+		}
+	}
+}
+
+void ABaseVillager::Roam()
+{
+	if(bIsDead)
+	{
+		return;
+	}
+	
+	if(USkeletalMeshComponent* VillagerMesh = GetMesh())
+	{
+		VillagerMesh->PlayAnimation(WalkAnimation, true);
+	}
+
+	if(const UNavigationSystemV1* NavigationSystem = UNavigationSystemV1::GetNavigationSystem(this))
+	{
+		if(AAIController* AiController = GetController<AAIController>())
+		{
+			FNavLocation RandomLocation;
+			NavigationSystem->GetRandomReachablePointInRadius(RoamOriginPoint, RoamRadius, RandomLocation);
+			AiController->ReceiveMoveCompleted.AddUniqueDynamic(this, &ABaseVillager::OnMoveComplete);
+			AiController->MoveToLocation(RandomLocation, RoamAcceptanceRadius, false);
+		}
+	}
 }
 

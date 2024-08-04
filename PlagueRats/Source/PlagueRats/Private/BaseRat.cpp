@@ -101,7 +101,7 @@ void ABaseRat::AttackVillager()
 		if(AAIController* AiController = GetController<AAIController>())
 		{
 			AiController->ReceiveMoveCompleted.AddUniqueDynamic(this, &ABaseRat::OnMoveComplete);
-			AiController->MoveToActor(CurrentTarget, 5.f, false);
+			AiController->MoveToActor(CurrentTarget, AttackAcceptanceRadius, false);
 			if(USkeletalMeshComponent* MeshComponent = GetMesh())
 			{
 				MeshComponent->PlayAnimation(MeshAnimation, true);

@@ -69,6 +69,9 @@ protected:
 	UPROPERTY(EditAnywhere)
 	float TimeUntilDestruction = 5.f;
 
+	UPROPERTY(EditAnywhere)
+	float AttackAcceptanceRadius = 5.f;
+
 	UPROPERTY()
 	TObjectPtr<ABaseVillager> CurrentTarget = nullptr;
 
