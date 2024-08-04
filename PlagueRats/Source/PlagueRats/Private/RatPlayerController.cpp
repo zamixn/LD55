@@ -7,6 +7,7 @@
 #include "InfectedCounter.h"
 #include "ManaBar.h"
 #include "ProficiencyScreen.h"
+#include "WidgetHUD.h"
 
 void ARatPlayerController::OnRatAttackedVillager(const bool bHasKilled)
 {
@@ -59,7 +60,7 @@ void ARatPlayerController::LevelUp()
 
 		if(CurrentLvl == 5 && PlayerHUD->GameHud)
 		{
-			
+			PlayerHUD->GameHud->UnlockBigRat();
 		}
 	}
 }

@@ -3,3 +3,12 @@
 
 #include "WidgetHUD.h"
 
+#include "RatSelector.h"
+
+void UWidgetHUD::UnlockBigRat() const
+{
+	if(RatSelector)
+	{
+		RatSelector->SetVisibility(ESlateVisibility::Visible);
+	}
+}

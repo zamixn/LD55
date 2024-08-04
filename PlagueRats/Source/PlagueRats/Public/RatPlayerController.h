@@ -36,6 +36,12 @@ protected:
 public:
 	void OnRatAttackedVillager(const bool bHasKilled);
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float RatSpeed = 0.f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float RatLifetime = 0.f;
+
 private:
 	void OnRatKilledVillager();
 	void LevelUp();
