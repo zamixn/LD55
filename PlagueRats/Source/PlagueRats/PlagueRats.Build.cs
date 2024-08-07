@@ -17,7 +17,9 @@ public class PlagueRats : ModuleRules
 			"AIModule", 
 			"UMG", 
 			"Niagara",
-			"NavigationSystem"
+			"NavigationSystem",
+			"rts_camera",
+			"EnhancedInput"
 		});
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });

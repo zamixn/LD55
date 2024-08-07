@@ -44,6 +44,18 @@ void ARatPlayerController::OnRatDeath() const
 	}
 }
 
+void ARatPlayerController::OnRatsSpawned()
+{
+	CurrentMana = FMath::Clamp(CurrentMana - RatSpawnCost, 0.f, MaxMana);
+	if(const ABaseHUD* BaseHUD = GetHUD<ABaseHUD>())
+	{
+		if(BaseHUD->ManaBar)
+		{
+			BaseHUD->ManaBar->UpdateMana(CurrentMana, MaxMana);
+		}
+	}
+}
+
 void ARatPlayerController::BeginPlay()
 {
 	Super::BeginPlay();

@@ -6,6 +6,13 @@
 #include "GameFramework/PlayerController.h"
 #include "RatPlayerController.generated.h"
 
+UENUM(BlueprintType)
+enum class ERatType : uint8
+{
+	BasicRat,
+	BigRat
+};
+
 /**
  * 
  */
@@ -17,7 +24,9 @@ class PLAGUERATS_API ARatPlayerController : public APlayerController
 public:
 	void OnRatAttackedVillager(const bool bHasKilled);
 	void OnRatDeath() const;
+	void OnRatsSpawned();
 	FORCEINLINE int32 GetTotalInfected() const { return TotalInfected; }
+	FORCEINLINE bool CanSpawnRat() const { return CurrentMana - RatSpawnCost >= 0; }
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float RatSpeed = 0.f;
@@ -27,6 +36,9 @@ public:
 
 	UPROPERTY(BlueprintReadWrite)
 	int32 DaysSurvived = 0;
+
+	int32 RatCount = 0;
+	ERatType CurrentRatType = ERatType::BasicRat;
 	
 protected:
 	virtual void BeginPlay() override;
@@ -61,6 +73,6 @@ private:
 	bool CheckIfThereAreAliveRats() const;
 	void SetupStats() const;
 
-	int32 TotalInfected = 0.f;
+	int32 TotalInfected = 0;
 	int32 CurrentLvl = 0;
 };
