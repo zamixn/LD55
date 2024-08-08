@@ -33,13 +33,7 @@ protected:
 	TObjectPtr<UWidgetComponent> PlagueCounter = nullptr;
 
 	UPROPERTY(EditAnywhere)
-	TArray<USoundCue*> DeathNoises;
-
-	UPROPERTY(EditAnywhere)
 	float TimeUntilHide = 3.f;
-
-	UPROPERTY(EditAnywhere)
-	float TimeUntilDestroy = 10.f;
 
 	UPROPERTY(EditAnywhere)
 	TArray<UMaterialInstance*> Skins;
@@ -68,18 +62,15 @@ private:
 	void OnMoveComplete(FAIRequestID RequestID, EPathFollowingResult::Type Result);
 
 	void Die();
-	void DestroyVillager();
 	void HideVillager();
 	void CleanupAfterDeath();
 	void SetRandomSkin();
 	void Roam();
 	
-	bool bIsDead = false;
 	int32 LevelOfInfection = 0;
 	FVector RoamOriginPoint = FVector::ZeroVector;
 	float RoamRadius = 0.f;
 	
 	FTimerHandle HideVillagerHandle;
-	FTimerHandle DestroyVillagerHandle;
 	FTimerHandle IdleHandle;
 };

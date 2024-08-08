@@ -28,7 +28,7 @@ public:
 	ERatType RatType = ERatType::BasicRat;
 	
 protected:
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, meta=(BindWidgetOptional))
 	TObjectPtr<UButton> RatButton = nullptr;
 
 	UPROPERTY(EditAnywhere)

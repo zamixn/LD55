@@ -116,15 +116,10 @@ void ABaseVillager::Die()
 	}
 }
 
-void ABaseVillager::DestroyVillager()
-{
-	Destroy();
-}
-
 void ABaseVillager::HideVillager()
 {
 	SpeechBubble->SetHiddenInGame(true, true);
-	GetWorldTimerManager().SetTimer(DestroyVillagerHandle, this, &ABaseVillager::DestroyVillager, TimeUntilDestroy);
+	GetWorldTimerManager().SetTimer(DestroyEnemyHandle, this, &ABaseEnemy::DestroyEnemy, TimeUntilDestroy);
 }
 
 void ABaseVillager::CleanupAfterDeath()

@@ -23,6 +23,7 @@ public:
 	UFUNCTION()
 	void OnMoveComplete(FAIRequestID RequestID, EPathFollowingResult::Type Result);
 
+	void Die();
 	FORCEINLINE bool IsDead() const { return bIsDead; }
 
 protected:
@@ -82,7 +83,6 @@ private:
 	float GetAdditionalMoveSpeed() const;
 	float GetAdditionalLifetime() const;
 	void DestroyRat();
-	void Die();
 	
 	TSet<ABaseVillager*> AttackedVillagers;
 	bool bIsDead = false;

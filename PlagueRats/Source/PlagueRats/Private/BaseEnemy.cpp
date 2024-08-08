@@ -11,3 +11,8 @@ ABaseEnemy::ABaseEnemy()
 
 }
 
+void ABaseEnemy::DestroyEnemy()
+{
+	Destroy();
+}
+
