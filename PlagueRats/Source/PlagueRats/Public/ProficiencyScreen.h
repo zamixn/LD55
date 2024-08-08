@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "ProficiencyCardType.h"
 #include "Blueprint/UserWidget.h"
 #include "ProficiencyScreen.generated.h"
 
@@ -19,6 +20,8 @@ class PLAGUERATS_API UProficiencyScreen : public UUserWidget
 
 public:
 	void Show(const int32 CurrentLvl);
+	void Hide();
+	void OnProficiencyClicked(EProficiencyCardType Type);
 
 protected:
 	UPROPERTY(EditAnywhere, meta=(BindWidgetOptional))

@@ -20,6 +20,7 @@ class PLAGUERATS_API UWidgetHUD : public UUserWidget
 
 public:
 	void UnlockBigRat() const;
+	void UpdateRatSelectors() const;
 	
 	UPROPERTY(EditAnywhere, meta=(BindWidgetOptional))
 	TObjectPtr<UManaBar> ManaBar = nullptr;
@@ -28,5 +29,8 @@ public:
 	TObjectPtr<UInfectedCounter> InfectedCounter = nullptr;
 
 	UPROPERTY(EditAnywhere, meta=(BindWidgetOptional))
-	TObjectPtr<URatSelector> RatSelector = nullptr;
+	TObjectPtr<URatSelector> BigRatSelector = nullptr;
+
+	UPROPERTY(EditAnywhere, meta=(BindWidgetOptional))
+	TObjectPtr<URatSelector> SmallRatSelector = nullptr;
 };

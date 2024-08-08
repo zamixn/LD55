@@ -4,6 +4,7 @@
 #include "ProficiencyScreen.h"
 
 #include "ProficiencyCard.h"
+#include "RatPlayerController.h"
 #include "Blueprint/WidgetBlueprintLibrary.h"
 #include "Components/TextBlock.h"
 #include "Kismet/GameplayStatics.h"
@@ -26,5 +27,24 @@ void UProficiencyScreen::Show(const int32 CurrentLvl)
 	if(const FText* UnlockText = RatUnlockTextMap.Find(CurrentLvl))
 	{
 		RatUnlockText->SetText(*UnlockText);
+	}
+}
+
+void UProficiencyScreen::Hide()
+{
+	RemoveFromParent();
+	if(ARatPlayerController* RatPlayerController = GetOwningPlayer<ARatPlayerController>())
+	{
+		UWidgetBlueprintLibrary::SetInputMode_GameAndUIEx(RatPlayerController, nullptr, EMouseLockMode::LockAlways);
+	}
+}
+
+void UProficiencyScreen::OnProficiencyClicked(const EProficiencyCardType Type)
+{
+	if(ARatPlayerController* RatPlayerController = GetOwningPlayer<ARatPlayerController>())
+	{
+		RatPlayerController->GrantProficiency(Type);
+		Hide();
+		UGameplayStatics::SetGamePaused(this, false);
 	}
 }

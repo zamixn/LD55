@@ -7,8 +7,21 @@
 
 void UWidgetHUD::UnlockBigRat() const
 {
-	if(RatSelector)
+	if(BigRatSelector)
 	{
-		RatSelector->SetVisibility(ESlateVisibility::Visible);
+		BigRatSelector->SetVisibility(ESlateVisibility::Visible);
+	}
+}
+
+void UWidgetHUD::UpdateRatSelectors() const
+{
+	if(SmallRatSelector)
+	{
+		SmallRatSelector->UpdateSelector();
+	}
+
+	if(BigRatSelector)
+	{
+		BigRatSelector->UpdateSelector();
 	}
 }

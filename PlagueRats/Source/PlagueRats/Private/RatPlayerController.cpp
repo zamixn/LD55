@@ -56,6 +56,56 @@ void ARatPlayerController::OnRatsSpawned()
 	}
 }
 
+void ARatPlayerController::SelectRatType(const ERatType RatType)
+{
+	CurrentRatType = RatType;
+	if(const ABaseHUD* BaseHUD = GetHUD<ABaseHUD>())
+	{
+		if(BaseHUD->GameHud)
+		{
+			BaseHUD->GameHud->UpdateRatSelectors();
+		}
+	}
+}
+
+void ARatPlayerController::GrantProficiency(const EProficiencyCardType Type)
+{
+	switch (Type)
+	{
+	case EProficiencyCardType::RatLifeTime:
+		++RatLifetime;
+		break;
+	case EProficiencyCardType::RatSpeed:
+		++RatSpeed;
+		break;
+	case EProficiencyCardType::RatCount:
+		++RatCount;
+		break;
+	case EProficiencyCardType::TotalMana:
+		MaxMana += MaxManaDelta;
+		break;
+	case EProficiencyCardType::ManaRecovery:
+		ManaRecovery += ManaRecoveryDelta;
+		break;
+	default:
+		break;
+	}
+
+	CurrentMana = MaxMana;
+	if(const ABaseHUD* BaseHUD = GetHUD<ABaseHUD>())
+	{
+		if(BaseHUD->InfectedCounter)
+		{
+			BaseHUD->InfectedCounter->UpdateInfected(TotalInfected, InfectedNeededForLvl, CurrentLvl);
+		}
+		
+		if(BaseHUD->ManaBar)
+		{
+			BaseHUD->ManaBar->UpdateMana(CurrentMana, MaxMana);
+		}
+	}
+}
+
 void ARatPlayerController::BeginPlay()
 {
 	Super::BeginPlay();

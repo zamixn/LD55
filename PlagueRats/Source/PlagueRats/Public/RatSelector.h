@@ -3,8 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "RatType.h"
 #include "Blueprint/UserWidget.h"
 #include "RatSelector.generated.h"
+
+class UButton;
 
 /**
  * 
@@ -13,5 +16,34 @@ UCLASS()
 class PLAGUERATS_API URatSelector : public UUserWidget
 {
 	GENERATED_BODY()
+
+public:
+
+	virtual void NativeConstruct() override;
+	void UpdateSelector() const;
+
+	UFUNCTION()
+	void OnRatButtonClicked();
+
+	ERatType RatType = ERatType::BasicRat;
 	
+protected:
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UButton> RatButton = nullptr;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UTexture2D> BasicRatTexture = nullptr;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UTexture2D> BigRatTexture = nullptr;
+
+	UPROPERTY(EditAnywhere)
+	FSlateColor DefaultTint;
+
+	UPROPERTY(EditAnywhere)
+	FSlateColor SelectedTint;
+
+private:
+	FSlateBrush CreateSlateBrushFromTexture(const FSlateBrush& RefBrush, UTexture2D* Texture) const;
+	bool IsSelectedRatType() const;
 };

@@ -3,15 +3,10 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "ProficiencyCardType.h"
+#include "RatType.h"
 #include "GameFramework/PlayerController.h"
 #include "RatPlayerController.generated.h"
-
-UENUM(BlueprintType)
-enum class ERatType : uint8
-{
-	BasicRat,
-	BigRat
-};
 
 /**
  * 
@@ -25,6 +20,8 @@ public:
 	void OnRatAttackedVillager(const bool bHasKilled);
 	void OnRatDeath() const;
 	void OnRatsSpawned();
+	void SelectRatType(const ERatType RatType);
+	void GrantProficiency(const EProficiencyCardType Type);
 	FORCEINLINE int32 GetTotalInfected() const { return TotalInfected; }
 	FORCEINLINE bool CanSpawnRat() const { return CurrentMana - RatSpawnCost >= 0; }
 
@@ -66,6 +63,12 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 BigRatUnlockLevel = 5;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float MaxManaDelta = 10.f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float ManaRecoveryDelta = 0.1f;
 
 private:
 	void OnRatKilledVillager();

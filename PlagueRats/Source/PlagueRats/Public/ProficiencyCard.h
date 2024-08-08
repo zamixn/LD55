@@ -3,22 +3,13 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "ProficiencyCardType.h"
 #include "Blueprint/UserWidget.h"
 #include "ProficiencyCard.generated.h"
 
+class UButton;
 class UProficiencyScreen;
 class UTextBlock;
-
-UENUM(BlueprintType)
-enum class EProficiencyCardType : uint8
-{
-	RatLifeTime,
-	RatSpeed,
-	RatCount,
-	TotalMana,
-	ManaRecovery,
-	Max UMETA(Hidden)
-};
 
 /**
  * 
@@ -29,8 +20,12 @@ class PLAGUERATS_API UProficiencyCard : public UUserWidget
 	GENERATED_BODY()
 
 public:
+	virtual void NativeConstruct() override;
 	void RollRandomType();
 	FORCEINLINE void SetController(UProficiencyScreen* NewProficiencyScreen);
+
+	UFUNCTION()
+	void OnProficiencyButtonClicked();
 
 protected:
 	UPROPERTY(EditAnywhere, meta=(BindWidgetOptional))
@@ -38,6 +33,9 @@ protected:
 
 	UPROPERTY(EditAnywhere, meta=(BindWidgetOptional))
 	TObjectPtr<UTextBlock> DescriptionText = nullptr;
+
+	UPROPERTY(EditAnywhere, meta=(BindWidgetOptional))
+	TObjectPtr<UButton> ProficiencyButton = nullptr;
 
 	UPROPERTY()
 	TObjectPtr<UProficiencyScreen> ProficiencyScreen = nullptr;

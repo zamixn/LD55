@@ -3,7 +3,19 @@
 
 #include "ProficiencyCard.h"
 
+#include "ProficiencyScreen.h"
+#include "Components/Button.h"
 #include "Components/TextBlock.h"
+
+void UProficiencyCard::NativeConstruct()
+{
+	Super::NativeConstruct();
+
+	if(ProficiencyButton)
+	{
+		ProficiencyButton->OnClicked.AddUniqueDynamic(this, &UProficiencyCard::OnProficiencyButtonClicked);
+	}
+}
 
 void UProficiencyCard::RollRandomType()
 {
@@ -13,6 +25,14 @@ void UProficiencyCard::RollRandomType()
 void UProficiencyCard::SetController(UProficiencyScreen* NewProficiencyScreen)
 {
 	ProficiencyScreen = NewProficiencyScreen;
+}
+
+void UProficiencyCard::OnProficiencyButtonClicked()
+{
+	if(ProficiencyScreen)
+	{
+		ProficiencyScreen->OnProficiencyClicked(Type);
+	}
 }
 
 void UProficiencyCard::SetType(const EProficiencyCardType NewType)
