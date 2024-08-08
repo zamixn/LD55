@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "AIController.h"
 #include "AITypes.h"
-#include "GameFramework/Character.h"
+#include "BaseEnemy.h"
 #include "BaseVillager.generated.h"
 
 class ABaseVillagerSpawner;
@@ -14,16 +14,13 @@ class UWidgetComponent;
 DECLARE_LOG_CATEGORY_EXTERN(LogVillager, Log, All);
 
 UCLASS()
-class PLAGUERATS_API ABaseVillager : public ACharacter
+class PLAGUERATS_API ABaseVillager : public ABaseEnemy
 {
 	GENERATED_BODY()
 
 public:
 	// Sets default values for this character's properties
 	ABaseVillager();
-
-	UPROPERTY()
-	TObjectPtr<ABaseVillagerSpawner> Spawner = nullptr;
 
 protected:
 	// Called when the game starts or when spawned
