@@ -73,7 +73,7 @@ protected:
 	UPROPERTY(EditAnywhere)
 	float AttackAcceptanceRadius = 5.f;
 
-	UPROPERTY()
+	UPROPERTY(BlueprintReadWrite)
 	TObjectPtr<ABaseVillager> CurrentTarget = nullptr;
 
 private:

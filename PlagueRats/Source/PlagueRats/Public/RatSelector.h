@@ -25,6 +25,7 @@ public:
 	UFUNCTION()
 	void OnRatButtonClicked();
 
+	UPROPERTY(EditAnywhere)
 	ERatType RatType = ERatType::BasicRat;
 	
 protected:
