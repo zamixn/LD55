@@ -43,7 +43,7 @@ void ABaseVillagerSpawner::AttemptToSpawnVillagers()
 		const float RandomX = FMath::RandRange(Origin.X - BoxExtent.X / 2.f, Origin.X + BoxExtent.X / 2.f);
 		const float RandomY = FMath::RandRange(Origin.Y - BoxExtent.Y / 2.f, Origin.Y + BoxExtent.Y / 2.f);
 		const FVector SpawnPoint(RandomX, RandomY, Origin.Z);
-		const FRotator SpawnRotation(0.f, 0.f, FMath::RandRange(-180.f, 180.f));
+		const FRotator SpawnRotation(0.f, FMath::RandRange(-180.f, 180.f), 0.f);
 		if(ABaseEnemy* BaseEnemy = Cast<ABaseEnemy>(World->SpawnActor(VillagerClass, &SpawnPoint, &SpawnRotation)))
 		{
 			BaseEnemy->Spawner = this;
