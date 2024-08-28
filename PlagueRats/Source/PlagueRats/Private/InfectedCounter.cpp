@@ -13,6 +13,6 @@ void UInfectedCounter::UpdateInfected(const int32 TotalInfectedValue, const int3
 	}
 
 	TotalInfected->SetText(FText::Format(FText::FromString(TEXT("Infected: {0}")), TotalInfectedValue));
-	LeftUntilLvlUp->SetText(FText::Format(FText::FromString(TEXT("Left until plague up:: {0}")), LeftUntilLevelUp));
+	LeftUntilLvlUp->SetText(FText::Format(FText::FromString(TEXT("Left until plague up: {0}")), LeftUntilLevelUp));
 	Lvl->SetText(FText::Format(FText::FromString(TEXT("Plague level: {0}")), Level));
 }
