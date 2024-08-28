@@ -34,7 +34,7 @@ public:
 	UPROPERTY(BlueprintReadWrite)
 	int32 DaysSurvived = 0;
 
-	int32 RatCount = 0;
+	int32 RatCount = 1;
 	ERatType CurrentRatType = ERatType::BasicRat;
 	
 protected:

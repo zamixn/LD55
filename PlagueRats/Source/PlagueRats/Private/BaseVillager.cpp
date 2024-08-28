@@ -25,6 +25,9 @@ ABaseVillager::ABaseVillager()
 
 	SpeechBubble = CreateDefaultSubobject<UWidgetComponent>(TEXT("SpeechBubble"));
 	SpeechBubble->AttachToComponent(GetCapsuleComponent(), FAttachmentTransformRules::KeepRelativeTransform);
+
+	PlagueCounter = CreateDefaultSubobject<UWidgetComponent>(TEXT("PlagueCounter"));
+	PlagueCounter->AttachToComponent(GetCapsuleComponent(), FAttachmentTransformRules::KeepRelativeTransform);
 }
 
 // Called when the game starts or when spawned
