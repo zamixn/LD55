@@ -22,7 +22,7 @@ protected:
 	TObjectPtr<UTextBlock> Text = nullptr;
 
 	UPROPERTY(EditAnywhere, meta=(BindWidgetOptional))
-	TObjectPtr<UProgressBar> Progressbar = nullptr;
+	TObjectPtr<UProgressBar> ProgressBar = nullptr;
 	
 public:
 	void UpdateMana(const float CurrentMana, const float MaxMana) const;

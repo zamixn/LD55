@@ -24,10 +24,13 @@ ABaseVillager::ABaseVillager()
 	PrimaryActorTick.bCanEverTick = true;
 
 	SpeechBubble = CreateDefaultSubobject<UWidgetComponent>(TEXT("SpeechBubble"));
-	SpeechBubble->AttachToComponent(GetCapsuleComponent(), FAttachmentTransformRules::KeepRelativeTransform);
+	SpeechBubble->SetupAttachment(GetCapsuleComponent());
+	SpeechBubble->SetWidgetSpace(EWidgetSpace::Screen);
+	SpeechBubble->SetHiddenInGame(true, true);
 
 	PlagueCounter = CreateDefaultSubobject<UWidgetComponent>(TEXT("PlagueCounter"));
-	PlagueCounter->AttachToComponent(GetCapsuleComponent(), FAttachmentTransformRules::KeepRelativeTransform);
+	PlagueCounter->SetupAttachment(GetCapsuleComponent());
+	PlagueCounter->SetWidgetSpace(EWidgetSpace::Screen);
 }
 
 // Called when the game starts or when spawned

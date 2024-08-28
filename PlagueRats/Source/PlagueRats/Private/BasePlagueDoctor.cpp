@@ -18,6 +18,7 @@ ABasePlagueDoctor::ABasePlagueDoctor()
 {
 	ChargesLeft = CreateDefaultSubobject<UWidgetComponent>(TEXT("ChargesLeft"));
 	ChargesLeft->SetupAttachment(GetRootComponent());
+	ChargesLeft->SetWidgetSpace(EWidgetSpace::Screen);
 
 	DamageSphere = CreateDefaultSubobject<USphereComponent>(TEXT("DamageSphere"));
 	DamageSphere->SetupAttachment(GetRootComponent());
