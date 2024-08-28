@@ -11,6 +11,8 @@
 #include "ProficiencyScreen.h"
 #include "WidgetHUD.h"
 #include "Kismet/GameplayStatics.h"
+#include "PlagueStaticFunctions.h"
+#include "PlagueGameMode.h"
 
 void ARatPlayerController::OnRatAttackedVillager(const bool bHasKilled)
 {
@@ -145,9 +147,11 @@ void ARatPlayerController::LevelUp()
 			PlayerHUD->ProficiencyScreen->Show(CurrentLvl);
 		}
 
-		if(CurrentLvl == BigRatUnlockLevel && PlayerHUD->GameHud)
+		APlagueGameMode* gamemode = PlagueStaticFunctions::GetGameMode(this);
+		FUnlockableRatData ratData;
+		if (gamemode->UnlockablesDataAsset->GetRatUnlockedForLevel(CurrentLvl, ratData) && PlayerHUD->GameHud)
 		{
-			PlayerHUD->GameHud->UnlockBigRat();
+			PlayerHUD->GameHud->UnlockRat(ratData.RatToUnlock);		
 		}
 	}
 }

@@ -62,9 +62,6 @@ protected:
 	int32 BaseInfectedNeededForLvl = 3;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 BigRatUnlockLevel = 5;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float MaxManaDelta = 10.f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

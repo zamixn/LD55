@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "RatType.h"
 #include "WidgetHUD.generated.h"
 
 class URatSelector;
@@ -19,7 +20,7 @@ class PLAGUERATS_API UWidgetHUD : public UUserWidget
 	GENERATED_BODY()
 
 public:
-	void UnlockBigRat() const;
+	void UnlockRat(const ERatType ratType) const;
 	void UpdateRatSelectors() const;
 	
 	UPROPERTY(EditAnywhere, meta=(BindWidgetOptional))
@@ -28,9 +29,9 @@ public:
 	UPROPERTY(EditAnywhere, meta=(BindWidgetOptional))
 	TObjectPtr<UInfectedCounter> InfectedCounter = nullptr;
 
-	UPROPERTY(EditAnywhere, meta=(BindWidgetOptional))
-	TObjectPtr<URatSelector> BigRatSelector = nullptr;
+	UPROPERTY(BlueprintReadWrite, meta = (MakeEditWidget = true))
+	TArray<TObjectPtr<URatSelector>> RatSelectors;
 
-	UPROPERTY(EditAnywhere, meta=(BindWidgetOptional))
-	TObjectPtr<URatSelector> SmallRatSelector = nullptr;
+protected:
+	virtual void NativeOnInitialized() override;
 };

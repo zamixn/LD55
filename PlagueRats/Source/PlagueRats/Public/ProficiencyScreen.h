@@ -35,7 +35,4 @@ protected:
 
 	UPROPERTY(EditAnywhere, meta=(BindWidgetOptional))
 	TObjectPtr<UTextBlock> RatUnlockText = nullptr;
-
-	UPROPERTY(EditAnywhere)
-	TMap<int32, FText> RatUnlockTextMap;
 };

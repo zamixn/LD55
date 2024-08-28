@@ -5,23 +5,28 @@
 
 #include "RatSelector.h"
 
-void UWidgetHUD::UnlockBigRat() const
+void UWidgetHUD::UnlockRat(const ERatType ratType) const
 {
-	if(BigRatSelector)
+	for (size_t i = 0; i < RatSelectors.Num(); i++)
 	{
-		BigRatSelector->SetVisibility(ESlateVisibility::Visible);
+		if (RatSelectors[i]->RatType == ratType)
+			RatSelectors[i]->SetVisibility(ESlateVisibility::Visible);
 	}
 }
 
 void UWidgetHUD::UpdateRatSelectors() const
 {
-	if(SmallRatSelector)
+	for (size_t i = 0; i < RatSelectors.Num(); i++)
 	{
-		SmallRatSelector->UpdateSelector();
+		RatSelectors[i]->UpdateSelector();
 	}
+}
 
-	if(BigRatSelector)
+void UWidgetHUD::NativeOnInitialized()
+{
+	Super::NativeOnInitialized();
+	for (size_t i = 1; i < RatSelectors.Num(); i++)
 	{
-		BigRatSelector->UpdateSelector();
+		RatSelectors[i]->SetVisibility(ESlateVisibility::Collapsed);
 	}
 }

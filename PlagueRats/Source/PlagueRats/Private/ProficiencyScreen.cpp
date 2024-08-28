@@ -7,6 +7,8 @@
 #include "RatPlayerController.h"
 #include "Blueprint/WidgetBlueprintLibrary.h"
 #include "Components/TextBlock.h"
+#include "PlagueGameMode.h"
+#include "PlagueStaticFunctions.h"
 #include "Kismet/GameplayStatics.h"
 
 void UProficiencyScreen::Show(const int32 CurrentLvl)
@@ -24,9 +26,11 @@ void UProficiencyScreen::Show(const int32 CurrentLvl)
 	UWidgetBlueprintLibrary::SetInputMode_UIOnlyEx(GetOwningPlayer(), nullptr, EMouseLockMode::LockAlways);
 	UGameplayStatics::SetGamePaused(this, true);
 
-	if(const FText* UnlockText = RatUnlockTextMap.Find(CurrentLvl))
+	const APlagueGameMode* gamemode = PlagueStaticFunctions::GetGameMode(this);
+	FUnlockableRatData ratData;
+	if (gamemode->UnlockablesDataAsset->GetRatUnlockedForLevel(CurrentLvl, ratData))
 	{
-		RatUnlockText->SetText(*UnlockText);
+		RatUnlockText->SetText(ratData.UnlockText);
 	}
 }
 
