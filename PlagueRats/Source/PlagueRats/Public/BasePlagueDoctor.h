@@ -38,6 +38,9 @@ protected:
 	TObjectPtr<UNiagaraComponent> DamageParticles = nullptr;
 
 	UPROPERTY(EditAnywhere)
+	TObjectPtr<UNiagaraComponent> SpawnParticles = nullptr;
+
+	UPROPERTY(EditAnywhere)
 	int32 NumberOfChargesLeft = 10;
 
 private:

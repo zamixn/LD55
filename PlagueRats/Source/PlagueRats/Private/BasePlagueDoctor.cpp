@@ -22,6 +22,7 @@ ABasePlagueDoctor::ABasePlagueDoctor()
 
 	DamageSphere = CreateDefaultSubobject<USphereComponent>(TEXT("DamageSphere"));
 	DamageSphere->SetupAttachment(GetRootComponent());
+	DamageSphere->SetSphereRadius(400.f);
 	DamageSphere->SetGenerateOverlapEvents(true);
 	DamageSphere->SetCollisionProfileName(TEXT("OverlapAllDynamic"));
 	DamageSphere->OnComponentBeginOverlap.AddUniqueDynamic(this, &ABasePlagueDoctor::OnDamageSphereOverlap);
@@ -29,6 +30,10 @@ ABasePlagueDoctor::ABasePlagueDoctor()
 	DamageParticles = CreateDefaultSubobject<UNiagaraComponent>(TEXT("DamageParticles"));
 	DamageParticles->SetupAttachment(GetRootComponent());
 	DamageParticles->SetAutoActivate(true);
+
+	SpawnParticles = CreateDefaultSubobject<UNiagaraComponent>(TEXT("SpawnParticles"));
+	SpawnParticles->SetupAttachment(GetRootComponent());
+	SpawnParticles->SetAutoActivate(true);
 }
 
 void ABasePlagueDoctor::OnDamageSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
