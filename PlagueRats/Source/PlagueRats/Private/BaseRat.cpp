@@ -30,8 +30,8 @@ void ABaseRat::BeginPlay()
 {
 	Super::BeginPlay();
 
+	GetWorldTimerManager().SetTimer(TryAttackingVillagerHandle, this, &ABaseRat::TryAttackingVillager, TimeUntilNextAttackTry, true);
 	AttackVillager();
-	GetWorldTimerManager().SetTimer(TryAttackingVillagerHandle, this, &ABaseRat::TryAttackingVillager, TimeUntilNextAttackTry);
 	ApplyStats();
 
 	const float Lifetime = FMath::RandRange(MinAliveTime, MaxAliveTime) + GetAdditionalLifetime();
@@ -87,10 +87,6 @@ void ABaseRat::OnMoveComplete(FAIRequestID RequestID, EPathFollowingResult::Type
 			}
 		}
 	}
-	else
-	{
-		AttackVillager();
-	}
 }
 
 void ABaseRat::AttackVillager()
@@ -107,6 +103,7 @@ void ABaseRat::AttackVillager()
 				MeshComponent->PlayAnimation(MeshAnimation, true);
 			}
 
+			GetWorldTimerManager().ClearTimer(TryAttackingVillagerHandle);
 			GetWorldTimerManager().SetTimerForNextTick(this, &ABaseRat::SetRatBigScale);
 		}
 	}
