@@ -3,6 +3,7 @@
 
 #include "IdleOriginPoint.h"
 
+#include "Components/BillboardComponent.h"
 #include "Components/SphereComponent.h"
 
 // Sets default values
@@ -16,12 +17,8 @@ AIdleOriginPoint::AIdleOriginPoint()
 	Sphere = CreateDefaultSubobject<USphereComponent>(TEXT("Sphere"));
 	Sphere->SetupAttachment(GetRootComponent());
 	Sphere->SetSphereRadius(2500.f);
-}
 
-// Called when the game starts or when spawned
-void AIdleOriginPoint::BeginPlay()
-{
-	Super::BeginPlay();
-	
+	Billboard = CreateDefaultSubobject<UBillboardComponent>(TEXT("Billboard"));
+	Billboard->SetupAttachment(GetRootComponent());
 }
 
