@@ -10,6 +10,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetSystemLibrary.h"
 #include "Sound/SoundCue.h"
+#include "PlagueStaticFunctions.h"
 
 void APlayerPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
@@ -54,18 +55,9 @@ void APlayerPawn::SpawnRat()
 
 				if(UWorld* World = GetWorld())
 				{
-					TSubclassOf<ABaseRat> RatToSpawn = nullptr;
-					switch (RatPlayerController->CurrentRatType)
-					{
-					case ERatType::BasicRat:
-						RatToSpawn = BasicRatClass;
-						break;
-					case ERatType::BigRat:
-						RatToSpawn = BigRatClass;
-						break;
-					default:
-						break;
-					}
+					FRatData ratData;
+					PlagueStaticFunctions::GetGameMode(this)->RatDataAsset->GetRatOfType(RatPlayerController->CurrentRatType, ratData);
+					TSubclassOf<ABaseRat> RatToSpawn = ratData.ClassToSpawn;
 					
 					if(const AActor* SpawnedRat = World->SpawnActor(RatToSpawn, &HitResult.Location))
 					{

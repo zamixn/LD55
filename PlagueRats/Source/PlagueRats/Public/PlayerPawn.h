@@ -36,12 +36,6 @@ protected:
 
 	UPROPERTY()
 	TArray<USoundCue*> SpawnNoises;
-
-	UPROPERTY(EditAnywhere)
-	TSubclassOf<ABaseRat> BasicRatClass = nullptr;
-
-	UPROPERTY(EditAnywhere)
-	TSubclassOf<ABaseRat> BigRatClass = nullptr;
 	
 	UPROPERTY(EditAnywhere)
 	float WorldDirectionScale = 10000.f;

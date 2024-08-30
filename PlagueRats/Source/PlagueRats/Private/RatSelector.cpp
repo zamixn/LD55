@@ -3,6 +3,7 @@
 
 #include "RatSelector.h"
 
+#include "PlagueStaticFunctions.h"
 #include "RatPlayerController.h"
 #include "Components/Button.h"
 
@@ -24,18 +25,9 @@ void URatSelector::UpdateSelector() const
 		return;
 	}
 
-	UTexture2D* TextureToSet = nullptr;
-	switch (RatType)
-	{
-	case ERatType::BasicRat:
-		TextureToSet = BasicRatTexture;
-		break;
-	case ERatType::BigRat:
-		TextureToSet = BigRatTexture;
-		break;
-	default:
-		return;
-	}
+	FRatData ratData;
+	PlagueStaticFunctions::GetGameMode(this)->RatDataAsset->GetRatOfType(RatType, ratData);
+	UTexture2D* TextureToSet = ratData.Icon.LoadSynchronous();
 
 	FButtonStyle ButtonStyle = RatButton->GetStyle();
 	ButtonStyle.SetNormal(CreateSlateBrushFromTexture(ButtonStyle.Normal, TextureToSet));

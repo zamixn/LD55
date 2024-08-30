@@ -27,9 +27,9 @@ void UProficiencyScreen::Show(const int32 CurrentLvl)
 	UGameplayStatics::SetGamePaused(this, true);
 
 	const APlagueGameMode* Gamemode = PlagueStaticFunctions::GetGameMode(this);
-	if (FUnlockableRatData RatData; Gamemode->UnlockablesDataAsset->GetRatUnlockedForLevel(CurrentLvl, RatData))
+	if (FUnlockableRatData ratUnlockableData; Gamemode->UnlockablesDataAsset->GetRatUnlockedForLevel(CurrentLvl, ratUnlockableData))
 	{
-		RatUnlockText->SetText(RatData.UnlockText);
+		RatUnlockText->SetText(ratUnlockableData.UnlockText);
 	}
 }
 

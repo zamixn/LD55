@@ -33,12 +33,6 @@ protected:
 	TObjectPtr<UButton> RatButton = nullptr;
 
 	UPROPERTY(EditAnywhere)
-	TObjectPtr<UTexture2D> BasicRatTexture = nullptr;
-
-	UPROPERTY(EditAnywhere)
-	TObjectPtr<UTexture2D> BigRatTexture = nullptr;
-
-	UPROPERTY(EditAnywhere)
 	FSlateColor DefaultTint;
 
 	UPROPERTY(EditAnywhere)
