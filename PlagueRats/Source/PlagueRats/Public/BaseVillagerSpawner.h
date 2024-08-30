@@ -25,9 +25,12 @@ protected:
 	virtual void BeginPlay() override;
 	
 	void AttemptToSpawnVillagers();
-
+	
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<UBoxComponent> SpawnBounds = nullptr;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UBillboardComponent> Billboard = nullptr;
 
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<ABaseEnemy> VillagerClass = nullptr;
