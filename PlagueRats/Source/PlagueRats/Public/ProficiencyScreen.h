@@ -23,6 +23,8 @@ public:
 	void Hide();
 	void OnProficiencyClicked(EProficiencyCardType Type);
 
+	void RollRandomProficiencies(const int32 NumOfProficiancies, TArray<EProficiencyCardType>& OutTypes);
+
 protected:
 	UPROPERTY(EditAnywhere, meta=(BindWidgetOptional))
 	TObjectPtr<UProficiencyCard> ProficiencyCard1 = nullptr;

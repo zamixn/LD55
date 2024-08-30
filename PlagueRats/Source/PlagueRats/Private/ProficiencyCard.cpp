@@ -17,11 +17,6 @@ void UProficiencyCard::NativeConstruct()
 	}
 }
 
-void UProficiencyCard::RollRandomType()
-{
-	SetType(static_cast<EProficiencyCardType>(FMath::RandRange(0, static_cast<int32>(EProficiencyCardType::Max) - 1)));
-}
-
 void UProficiencyCard::SetController(UProficiencyScreen* NewProficiencyScreen)
 {
 	ProficiencyScreen = NewProficiencyScreen;

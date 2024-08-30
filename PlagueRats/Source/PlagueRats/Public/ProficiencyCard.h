@@ -21,11 +21,12 @@ class PLAGUERATS_API UProficiencyCard : public UUserWidget
 
 public:
 	virtual void NativeConstruct() override;
-	void RollRandomType();
 	FORCEINLINE void SetController(UProficiencyScreen* NewProficiencyScreen);
 
 	UFUNCTION()
 	void OnProficiencyButtonClicked();
+
+	void SetType(EProficiencyCardType NewType);
 
 protected:
 	UPROPERTY(EditAnywhere, meta=(BindWidgetOptional))
@@ -41,7 +42,6 @@ protected:
 	TObjectPtr<UProficiencyScreen> ProficiencyScreen = nullptr;
 
 private:
-	void SetType(EProficiencyCardType NewType);
 
 	EProficiencyCardType Type = EProficiencyCardType::RatLifeTime;
 };
