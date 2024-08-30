@@ -26,11 +26,10 @@ void UProficiencyScreen::Show(const int32 CurrentLvl)
 	UWidgetBlueprintLibrary::SetInputMode_UIOnlyEx(GetOwningPlayer(), nullptr, EMouseLockMode::LockAlways);
 	UGameplayStatics::SetGamePaused(this, true);
 
-	const APlagueGameMode* gamemode = PlagueStaticFunctions::GetGameMode(this);
-	FUnlockableRatData ratData;
-	if (gamemode->UnlockablesDataAsset->GetRatUnlockedForLevel(CurrentLvl, ratData))
+	const APlagueGameMode* Gamemode = PlagueStaticFunctions::GetGameMode(this);
+	if (FUnlockableRatData RatData; Gamemode->UnlockablesDataAsset->GetRatUnlockedForLevel(CurrentLvl, RatData))
 	{
-		RatUnlockText->SetText(ratData.UnlockText);
+		RatUnlockText->SetText(RatData.UnlockText);
 	}
 }
 
